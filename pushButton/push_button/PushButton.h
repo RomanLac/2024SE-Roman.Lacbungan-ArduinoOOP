@@ -3,18 +3,25 @@
 
 #include <Arduino.h>
 
-class PushButton // always use
+class PushButton
 {
 private:
   byte pin;
   byte state;
+  bool isPullUp;
+  bool internalPullUpActivated;
+  unsigned long lastTimeStateChanged;
+  unsigned long debounceDelay;
+
+  void readState();
 
 public:
-  PushButton() {} // do not use !1!!
-  PushButton(byte pin);
+  PushButton() {} // do not use
+  PushButton(byte pin, bool isPullUp, bool internalPullUpActivated) ;
 
   void init();
-  byte readState();
+
+  bool isPressed();
 
 };
 
